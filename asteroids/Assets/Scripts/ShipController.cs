@@ -96,18 +96,36 @@ public class ShipController : MonoBehaviour {
             transform.position = new Vector3(topRightLimit.x, transform.position.y, 0f);
     }
 
+    void PlayerDamage() {
+        // Metodo para realizar contagem de dano e respawn da nave
+        if (shipDamage == 2) {
+            transform.position = shipRespawn;
+            // Destroy(gameObject);
+            shipDamage = 0;
+        } else {
+            shipDamage += 1;
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D collision) {
+        // Controle de colisao da nave com asteroid
         if (collision.CompareTag("asteroid")) {
             Destroy(collision.gameObject);
-            
-            if (shipDamage < 3) {
-                transform.position = shipRespawn;
-                // Destroy(gameObject);
-                shipDamage = 0;
-            } else {
-                shipDamage += 1;
-            }
+            PlayerDamage();
         }
+
+        // Controle de colisao da nave com o alien inimigo
+        if (collision.CompareTag("alien")) {
+            PlayerDamage();
+        }
+
+        // Controle de colisao da nave com o tiro do alien inimigo
+        if (collision.CompareTag("alienBullet")) {
+            Destroy(collision.gameObject);
+            PlayerDamage();
+        }
+
+        // Controle de colisao da nave com a municao
         if(collision.CompareTag("ammo")) {
             bulletLimit -= 5;
             if (bulletLimit < 0) {
