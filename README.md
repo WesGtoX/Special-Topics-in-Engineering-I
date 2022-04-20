@@ -18,7 +18,7 @@
 
 ## About the Project
 
-...
+2D Game Development.
 
 Made in College.
 
@@ -27,8 +27,8 @@ Made in College.
 
 This project was developed with the following technologies:
 
-- [C#]()
-- [Unity]()
+- [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
+- [Unity](https://unity.com/)
 
 
 ## References
@@ -42,4 +42,4 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
 
 ---
 
-Made with ♥ by [Wesley Mendes](https://wesleymendes.com.br/) :wave:
+Made with ♥ by [Wesley Mendes](https://wesleymendes.com/) :wave:
