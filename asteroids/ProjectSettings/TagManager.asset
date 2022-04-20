@@ -8,6 +8,8 @@ TagManager:
   - asteroid
   - ship
   - ammo
+  - alien
+  - alienBullet
   layers:
   - Default
   - TransparentFX
