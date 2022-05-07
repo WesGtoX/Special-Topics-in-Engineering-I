@@ -6,7 +6,10 @@ public class MarioController : MonoBehaviour {
     [SerializeField]
     float speedMax = 5.0f;
     [SerializeField]
-    bool isGrounded = false;
+    bool isGrounded = true;
+    bool isRunning = false;
+    bool isJump = false;
+    bool isCrouched = false;
     [SerializeField]
     float jumpImpulse = 7.0f;
     Animator animCtrl;
@@ -19,28 +22,38 @@ public class MarioController : MonoBehaviour {
         animCtrl = GetComponent<Animator>();
         spr = GetComponent<SpriteRenderer>();
         rb2d = GetComponent<Rigidbody2D>();
+
+        horizontalInput = 1f;
     }
 
     void Update() {
         CheckGround();
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true)
+        isJump = Input.GetKeyDown(KeyCode.Space) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
+        if (isJump && isGrounded == true)
             rb2d.AddForce(Vector2.up * jumpImpulse, ForceMode2D.Impulse);
 
-        horizontalInput = Input.GetAxisRaw("Horizontal");
+        isCrouched = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
+        if (!isCrouched)
+            horizontalInput = Input.GetAxisRaw("Horizontal");
+
+        isRunning = horizontalInput != 0 && Input.GetKey(KeyCode.LeftShift);
         UpdateAnimation();
     }
 
     void FixedUpdate() {
-        rb2d.velocity = new Vector2(horizontalInput * speedMax, rb2d.velocity.y);
+        float speedRun = isRunning ? 1.5f : 1f;
+        rb2d.velocity = new Vector2(horizontalInput * (speedMax * speedRun), rb2d.velocity.y);
     }
 
     void UpdateAnimation() {
         animCtrl.SetFloat("speed", Mathf.Abs(horizontalInput));
         animCtrl.SetBool("isGrounded", isGrounded);
+        animCtrl.SetBool("isRunning", isRunning);
+        animCtrl.SetBool("isCrouched", isCrouched);
 
         if (horizontalInput != 0)
-            animCtrl.SetFloat("direction", horizontalInput);
+            animCtrl.SetFloat("direction", horizontalInput);           
 
         // Apenas para o caso de utilização de animações para a direita
         // if (horizontalInput > 0) {
