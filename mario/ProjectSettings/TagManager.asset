@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - gumba
+  - waypoint01
+  - waypoint02
+  - waypoint03
+  - tree
   layers:
   - Default
   - TransparentFX
