@@ -7,7 +7,6 @@ public class GumbaController : MonoBehaviour {
     float speedMax = 1.0f;
     [SerializeField]
     bool isGrounded = true;
-    bool isJump = false;
     [SerializeField]
     float jumpImpulse = 4.0f;
     Animator animCtrl;
