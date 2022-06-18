@@ -9,6 +9,8 @@ TagManager:
   - waypoint02
   - waypoint03
   - tree
+  - coin
+  - enemy
   layers:
   - Default
   - TransparentFX
