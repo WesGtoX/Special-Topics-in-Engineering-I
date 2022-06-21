@@ -54,8 +54,8 @@ public class MarioController : MonoBehaviour {
 
         isCrouched = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
         if (!isCrouched)
-            horizontalInput = Input.GetAxisRaw("Horizontal");
-            // horizontalInput = joyStick.GetHorizontal();
+            //horizontalInput = Input.GetAxisRaw("Horizontal");
+            horizontalInput = joyStick.GetHorizontal();
 
         isRunning = horizontalInput != 0 && Input.GetKey(KeyCode.LeftShift);
         UpdateAnimation();
