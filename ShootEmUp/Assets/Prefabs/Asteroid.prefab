@@ -14,7 +14,9 @@ GameObject:
   - component: {fileID: 289227366580679495}
   - component: {fileID: 289227366580679494}
   - component: {fileID: 289227366580679515}
-  m_Layer: 0
+  - component: {fileID: -1576137422075493573}
+  - component: {fileID: 4265056632922760146}
+  m_Layer: 8
   m_Name: Asteroid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5189b587587c94c46ae4c9ab943d96ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: -4
+  speed: -2
 --- !u!114 &289227366580679515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,3 +154,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateMin: -180
   rotateMax: 180
+--- !u!114 &-1576137422075493573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 289227366580679489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2e1c1a6f556b414a890e68dc8cacca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosion: {fileID: 6026575885595512781, guid: 2b25bf7109efdcf4699f6d5b4c98f6fe, type: 3}
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  health: 5
+  scorePoint: 10
+  isDead: 0
+--- !u!114 &4265056632922760146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 289227366580679489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd6395103371f3743adf2c090db7587a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1

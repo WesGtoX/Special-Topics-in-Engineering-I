@@ -123,6 +123,69 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &515741290
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 515741292}
+  - component: {fileID: 515741291}
+  m_Layer: 0
+  m_Name: LevelController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &515741291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515741290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2a7cb7875374744289694e4a23846d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startWait: 3
+  spawnWaitMin: 0.1
+  waveWait: 2.5
+  waveWaitMin: 0.5
+  enemyCountMax: 10
+  livesText: {fileID: 730009328}
+  scoreText: {fileID: 1801986426}
+  recordText: {fileID: 656418979}
+  gameOverObj: {fileID: 1069990517}
+  enemies:
+  - {fileID: 289227366580679489, guid: 70266e85dfcb34f46b26f5338d070c06, type: 3}
+  - {fileID: 5529148014016756492, guid: 021bfb8b585c4d243a951be4b9be3dd7, type: 3}
+  - {fileID: 8287820305970697398, guid: aa36f95d23d573c4f8d96d5161d5e6c1, type: 3}
+  boundary:
+    xMin: -3
+    xMax: 3
+    yMin: 6
+    yMax: 0
+  spawnWait: {x: 1, y: 2}
+--- !u!4 &515741292
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515741290}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,6 +270,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &656418979 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2805097274355130493, guid: af79b190521a419489e42d417119fdfc, type: 3}
+  m_PrefabInstance: {fileID: 730009327}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &708240000
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,8 +294,9 @@ GameObject:
   - component: {fileID: 708240003}
   - component: {fileID: 708240002}
   - component: {fileID: 708240001}
-  m_Layer: 0
-  m_Name: Spaceship
+  - component: {fileID: 708240006}
+  m_Layer: 6
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -243,7 +318,10 @@ MonoBehaviour:
   joyStick: {fileID: 1498055755}
   speed: 5
   fireRate: 0.2
+  spawnTime: 2
+  invencibilityTime: 2
   fireLevel: 1
+  lives: 3
   boundary:
     xMin: -2.4
     xMax: 2.4
@@ -371,6 +449,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &708240006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708240000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2e1c1a6f556b414a890e68dc8cacca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosion: {fileID: 3578357008904044798, guid: 78b4f96d92bd61344876926067e4a097, type: 3}
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  health: 0
+  scorePoint: 0
 --- !u!1001 &730009327
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -466,8 +560,39 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4677616747553471148, guid: af79b190521a419489e42d417119fdfc, type: 3}
+      propertyPath: m_Text
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5345311943402400941, guid: af79b190521a419489e42d417119fdfc, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -5410399771654756384, guid: 07fa4a9616a73f34785703310e3f094b, type: 3}
+    - target: {fileID: 5345311943402400941, guid: af79b190521a419489e42d417119fdfc, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7695074035366906711, guid: af79b190521a419489e42d417119fdfc, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 15.297913
+      objectReference: {fileID: 0}
+    - target: {fileID: 7997842023005709510, guid: af79b190521a419489e42d417119fdfc, type: 3}
+      propertyPath: m_Name
+      value: LifeUI
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af79b190521a419489e42d417119fdfc, type: 3}
+--- !u!114 &730009328 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4677616747553471148, guid: af79b190521a419489e42d417119fdfc, type: 3}
+  m_PrefabInstance: {fileID: 730009327}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &769330107
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,6 +779,11 @@ Transform:
   m_Father: {fileID: 769330108}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1069990517 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 664234059456497550, guid: af79b190521a419489e42d417119fdfc, type: 3}
+  m_PrefabInstance: {fileID: 730009327}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1133001157
 GameObject:
   m_ObjectHideFlags: 0
@@ -736,5 +866,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e19ead7d5b8e22c4e9239bb20acc76b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1801986426 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3981730886263328449, guid: af79b190521a419489e42d417119fdfc, type: 3}
+  m_PrefabInstance: {fileID: 730009327}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

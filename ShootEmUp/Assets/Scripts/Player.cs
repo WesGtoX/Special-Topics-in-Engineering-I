@@ -8,7 +8,7 @@ public class Boundary {
     public float xMin, xMax, yMin, yMax;
 }
 
-public class SpaceshipController : MonoBehaviour {
+public class Player : MonoBehaviour {
 
     [SerializeField]
     VirtualButton dashButton;
@@ -18,23 +18,32 @@ public class SpaceshipController : MonoBehaviour {
     [SerializeField]
     public float speed;
     public float fireRate;
+    public float spawnTime;
+    public float invencibilityTime;
     public int fireLevel = 1;
+    public int lives = 3;
 
     public Boundary boundary;
     public GameObject bullet;
     public Transform[] shotSpawns;
 
-    private Animator animCtrl;
     private Rigidbody2D rb2d;
+    private SpriteRenderer sprite;
+    private Vector3 startPosition;
+    private CharacterHP characterHP;
+
     private float nextFire;
+    private bool isDead = false;
 
     void Start() {
-        animCtrl = GetComponent<Animator>();
+        characterHP = GetComponent<CharacterHP>();
         rb2d = GetComponent<Rigidbody2D>();
+        sprite = GetComponent<SpriteRenderer>();
+        startPosition = transform.position;
     }
 
     void Update() {
-        if (Time.time > nextFire) {
+        if (!isDead && Time.time > nextFire) {
             nextFire = Time.time + fireRate;
             if (fireLevel >= 1) {
                 Instantiate(bullet, shotSpawns[0].position, shotSpawns[0].rotation);
@@ -50,8 +59,6 @@ public class SpaceshipController : MonoBehaviour {
                 Instantiate(bullet, shotSpawns[4].position, shotSpawns[4].rotation);
             }
         }
-
-        //UpdateAnimation();
     }
 
     void FixedUpdate() {
@@ -63,7 +70,39 @@ public class SpaceshipController : MonoBehaviour {
         );
     }
 
-    void UpdateAnimation() {
+    public void Respawn() {
+        lives--;
+        
+        if (lives > 0) {
+            StartCoroutine(Spawning());
+        } else {
+            lives = 0;
+            isDead = true;
+            sprite.enabled = false;
+            fireLevel = 0;
+            LevelController.levelController.GameOver();
+        }
 
+        LevelController.levelController.SetLivesText(lives);
+    }
+
+    IEnumerator Spawning() {
+        isDead = true;
+        sprite.enabled = false;
+        fireLevel = 1;
+        gameObject.layer = 9;
+        yield return new WaitForSeconds(spawnTime);
+        isDead = false;
+        transform.position = startPosition;
+
+        for (float i = 0; i < invencibilityTime; i+= 0.1f) {
+            sprite.enabled = !sprite.enabled;
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        gameObject.layer = 6;
+        sprite.enabled = true;
+        fireLevel = 1;
+        characterHP.isDead = false;
     }
 }
