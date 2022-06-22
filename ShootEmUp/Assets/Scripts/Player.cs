@@ -8,10 +8,16 @@ public class Boundary {
     public float xMin, xMax, yMin, yMax;
 }
 
+public enum ItemEffect {
+    shield, levelUP, special
+}
+
 public class Player : MonoBehaviour {
 
+    //[SerializeField]
+    //VirtualButton dashButton;
     [SerializeField]
-    VirtualButton dashButton;
+    VirtualButton specialButton;
     [SerializeField]
     VirtualJoyStick joyStick;
 
@@ -25,6 +31,8 @@ public class Player : MonoBehaviour {
 
     public Boundary boundary;
     public GameObject bullet;
+    public GameObject specialLaser;
+    public GameObject shield;
     public Transform[] shotSpawns;
 
     private Rigidbody2D rb2d;
@@ -33,6 +41,7 @@ public class Player : MonoBehaviour {
     private CharacterHP characterHP;
 
     private float nextFire;
+    private int special;
     private bool isDead = false;
 
     void Start() {
@@ -45,6 +54,7 @@ public class Player : MonoBehaviour {
     void Update() {
         if (!isDead && Time.time > nextFire) {
             nextFire = Time.time + fireRate;
+            
             if (fireLevel >= 1) {
                 Instantiate(bullet, shotSpawns[0].position, shotSpawns[0].rotation);
             }
@@ -59,10 +69,24 @@ public class Player : MonoBehaviour {
                 Instantiate(bullet, shotSpawns[4].position, shotSpawns[4].rotation);
             }
         }
+
+        if (!isDead && specialButton.GetButtonDown() && special > 0) {
+            Instantiate(specialLaser, transform);
+            special--;
+            LevelController.levelController.SetSpecial(special);
+        }
+
+        //if (!isDead && dashButton.GetButtonDown() && special > 3) {
+        //    //Dash...;
+        //    special -= 3;
+        //    LevelController.levelController.SetSpecial(special);
+        //}
     }
 
     void FixedUpdate() {
         Vector2 movement = new Vector2(joyStick.GetHorizontal(), joyStick.GetVertical());
+        //movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        
         rb2d.velocity = movement * speed;
         rb2d.position = new Vector2(
             Mathf.Clamp(rb2d.position.x, boundary.xMin, boundary.xMax),
@@ -104,5 +128,18 @@ public class Player : MonoBehaviour {
         sprite.enabled = true;
         fireLevel = 1;
         characterHP.isDead = false;
+    }
+
+    public void SetItemEffect(ItemEffect effect) {
+        if (effect == ItemEffect.levelUP) {
+            fireLevel++;
+            if (fireLevel >= 3)
+                fireLevel = 3;
+        } else if (effect == ItemEffect.special) {
+            special++;
+            LevelController.levelController.SetSpecial(special);
+        } else if (effect == ItemEffect.shield) {
+            Instantiate(shield, transform);
+        }
     }
 }

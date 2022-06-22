@@ -17,6 +17,7 @@ public class LevelController : MonoBehaviour {
     public Text livesText;
     public Text scoreText;
     public Text recordText;
+    public Text specialText;
 
     public GameObject gameOverObj;
     public GameObject[] enemies;
@@ -88,4 +89,12 @@ public class LevelController : MonoBehaviour {
 
         recordText.text = "Record: " + PlayerPrefs.GetInt("MaxScore");
     }
+
+    public void SetSpecial(int value) {
+        specialText.text = value.ToString();
+    }
+
+    //public void SetDash(int value) {
+    //    specialText.text = value.ToString();
+    //}
 }

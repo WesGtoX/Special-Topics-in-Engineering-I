@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharacterHP : MonoBehaviour {
     
     public GameObject explosion;
+    public GameObject[] dropItems;
     public Color damageColor;
 
     public int health;
@@ -13,6 +14,7 @@ public class CharacterHP : MonoBehaviour {
     [HideInInspector]
     public bool isDead = false;
     private SpriteRenderer sprite;
+    private static int chanceToDropItem = 0;
 
     void Start() {
         sprite = GetComponent<SpriteRenderer>();
@@ -24,11 +26,21 @@ public class CharacterHP : MonoBehaviour {
 
             if (health <= 0) {
                 isDead = true;
-                Instantiate(explosion, transform.position, transform.rotation);
+
+                if (explosion != null)
+                    Instantiate(explosion, transform.position, transform.rotation);
 
                 if (this.GetComponent<Player>() != null) {
                     GetComponent<Player>().Respawn();
                 } else {
+                    chanceToDropItem++;
+                    int random = Random.Range(0, 100);
+                    
+                    if (random < chanceToDropItem && dropItems.Length > 0) {
+                        Instantiate(dropItems[Random.Range(0, dropItems.Length)], transform.position, Quaternion.identity);
+                        chanceToDropItem = 0;
+                    }
+                    
                     LevelController.levelController.SetScore(scorePoint);
                     Destroy(gameObject);
                 }
