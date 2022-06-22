@@ -16,7 +16,8 @@ public class LevelController : MonoBehaviour {
 
     public Text livesText;
     public Text scoreText;
-    public Text recordText;
+    public Text currenScoretText;
+    public Text highScoreText;
     public Text specialText;
 
     public GameObject gameOverObj;
@@ -33,12 +34,12 @@ public class LevelController : MonoBehaviour {
         StartCoroutine(SpawnWaves());
     }
 
-    void Update() {
-        if (gameOver) {
-            if (Input.GetMouseButtonDown(0))
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-    }
+    // void Update() {
+    //     if (gameOver) {
+    //         if (Input.GetMouseButtonDown(0))
+    //             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    //     }
+    // }
 
     IEnumerator SpawnWaves() {
         yield return new WaitForSeconds(startWait);
@@ -87,14 +88,15 @@ public class LevelController : MonoBehaviour {
         if (PlayerPrefs.GetInt("MaxScore") < score)
             PlayerPrefs.SetInt("MaxScore", score);
 
-        recordText.text = "Record: " + PlayerPrefs.GetInt("MaxScore");
+        currenScoretText.text = score.ToString();
+        highScoreText.text = PlayerPrefs.GetInt("MaxScore").ToString();
     }
 
     public void SetSpecial(int value) {
         specialText.text = value.ToString();
     }
 
-    //public void SetDash(int value) {
-    //    specialText.text = value.ToString();
-    //}
+    public void LoadScene(string sceneName) {
+        SceneManager.LoadScene(sceneName);
+    }
 }
