@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 5529148014016756485}
   - component: {fileID: -3875300941018947283}
   - component: {fileID: 3630483156990410260}
+  - component: {fileID: -74435273705881516}
   m_Layer: 8
   m_Name: Spaceship
   m_TagString: Untagged
@@ -202,10 +203,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e1c1a6f556b414a890e68dc8cacca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 4
   explosion: {fileID: 6026575885595512781, guid: 2b25bf7109efdcf4699f6d5b4c98f6fe, type: 3}
+  dropItems:
+  - {fileID: 4393667625091684192, guid: 218a3bf7743ee294a9559a3c1d4f8833, type: 3}
+  - {fileID: 3230355262399709356, guid: d1b8fb3e394c70f4ebfd50cef642e6c3, type: 3}
+  - {fileID: 8787456167305446036, guid: 7e08dd5c4c2472042a25fd86c6d6407a, type: 3}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
+  health: 4
   scorePoint: 30
+  isDead: 0
 --- !u!114 &3630483156990410260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,6 +225,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  destroyByContact: 1
+  destroyShots: 0
+--- !u!95 &-74435273705881516
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5529148014016756492}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a5a7a4defa32a074ab583aaae3e7e01f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5529148014023122272
 GameObject:
   m_ObjectHideFlags: 0

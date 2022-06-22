@@ -167,6 +167,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 6026575885595512781, guid: 2b25bf7109efdcf4699f6d5b4c98f6fe, type: 3}
+  dropItems:
+  - {fileID: 4393667625091684192, guid: 218a3bf7743ee294a9559a3c1d4f8833, type: 3}
+  - {fileID: 3230355262399709356, guid: d1b8fb3e394c70f4ebfd50cef642e6c3, type: 3}
+  - {fileID: 8787456167305446036, guid: 7e08dd5c4c2472042a25fd86c6d6407a, type: 3}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   health: 5
   scorePoint: 10
