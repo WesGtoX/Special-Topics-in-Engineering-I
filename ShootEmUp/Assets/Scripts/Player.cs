@@ -75,17 +75,11 @@ public class Player : MonoBehaviour {
             special--;
             LevelController.levelController.SetSpecial(special);
         }
-
-        //if (!isDead && dashButton.GetButtonDown() && special > 3) {
-        //    //Dash...;
-        //    special -= 3;
-        //    LevelController.levelController.SetSpecial(special);
-        //}
     }
 
     void FixedUpdate() {
         Vector2 movement = new Vector2(joyStick.GetHorizontal(), joyStick.GetVertical());
-        //movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        // movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         
         rb2d.velocity = movement * speed;
         rb2d.position = new Vector2(
@@ -113,13 +107,13 @@ public class Player : MonoBehaviour {
     IEnumerator Spawning() {
         isDead = true;
         sprite.enabled = false;
-        fireLevel = 1;
-        gameObject.layer = 9;
+        fireLevel = 0;
+        gameObject.layer = 10;
         yield return new WaitForSeconds(spawnTime);
         isDead = false;
         transform.position = startPosition;
 
-        for (float i = 0; i < invencibilityTime; i+= 0.1f) {
+        for (float i = 0; i < invencibilityTime; i += 0.1f) {
             sprite.enabled = !sprite.enabled;
             yield return new WaitForSeconds(0.1f);
         }
@@ -133,6 +127,7 @@ public class Player : MonoBehaviour {
     public void SetItemEffect(ItemEffect effect) {
         if (effect == ItemEffect.levelUP) {
             fireLevel++;
+            
             if (fireLevel >= 3)
                 fireLevel = 3;
         } else if (effect == ItemEffect.special) {
